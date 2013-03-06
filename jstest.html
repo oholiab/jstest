@@ -114,6 +114,18 @@
 					ctx.fillRect(x,y,1,1);
 				}
 			}
+
+			// Test code for redrawing and also creating a game loop
+			var z = 1
+			setInterval(function() {
+					ctx.fillStyle = colours[z];
+					ctx.fillRect(5,5,1,1);
+					if(z==16){
+						z = 1;
+						} else {
+						z++;
+					}
+			}, 500);
 		</script>
 	</body>
 </html>
