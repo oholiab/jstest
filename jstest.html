@@ -71,6 +71,7 @@
 1000000000000000000000000000000000000000000000000000000000000001\n\
 1111111111111111111111111111111111111111111111111111111111111111\n"
 
+			// For mapping 16 colour CGA to hex because of reasons
 			colours = [
 				"#000000",
 				"#ffffff",
@@ -89,15 +90,24 @@
 				"#ff55ff",
 				"#aa00aa"
 			]
+
+			// Load map in to a 2x2 array by splitting by line and then
+			// further splitting to characters
 			var mapArray = [];
 			var tmpArray = map.split("\n");
 			for(var i = 0; i < tmpArray.length; i++) {
 				mapArray.push(tmpArray[i].split(""));
 			}
 
+			// Canvas context crap
 			var c=document.getElementById("myCanvas");
 			var ctx=c.getContext("2d");
 			var y = 0
+
+			// Loop through every element in the array treating each as
+			// a pixel location. Fill the associated pixel with a 1x1
+			// rectangle with the colour that is associated to the hex
+			// code contained in the element
 			for(y = 0; y < mapArray.length; y++) {
 				for(var x = 0; x < mapArray[y].length; x++) {
 					ctx.fillStyle = colours[parseInt(mapArray[y][x],16)]; 
