@@ -7,6 +7,7 @@
 				var context = canvas.getContext('2d');
 				context.clearRect(0, 0, canvas.width, canvas.height);
 				context.font = '12pt Calibri';
+				context.fillStyle = 'black';
 				context.fillText(message, 10, 25);
 			}
 
@@ -45,7 +46,7 @@
 				drawPoints(canvas, points);
 			}, false);
 			canvas.addEventListener('mousedown', function(click) {
-					var mousePos = getMousePos(canvas, evt);
+					var mousePos = getMousePos(canvas, click);
 					points.push(new point(mousePos.x, mousePos.y));
 			}, false);
 		</script>
