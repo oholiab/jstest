@@ -27,7 +27,16 @@
 					context.arc(thisPoint.x, thisPoint.y, 2, 0, 2 * Math.PI, false);
 					context.fillStyle = 'green';
 					context.fill();
+					writeCoords(canvas, thisPoint);
 				}
+			}
+
+			function writeCoords(canvas, point) {
+				var context = canvas.getContext('2d');
+				var coordString = point.x + "," + point.y;
+				context.font = '8pt Calibri';
+				context.fillText(coordString, point.x + 2, point.y + 2);
+				context.fill();
 			}
 
 			function point(x, y) {
