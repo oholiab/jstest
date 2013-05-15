@@ -1,5 +1,6 @@
 <html>
 	<body>
+		<p><div id=jsonCoords></div></p>
 		<canvas id="canvas" width="800" height="600">
 		<script type="text/javascript">
 
@@ -44,20 +45,34 @@
 				this.y = y;
 			}
 
-			var canvas = document.getElementById('canvas');
-			var context = canvas.getContext('2d');
-			var points = new Array();
+			function exportPoints(pointsArray) {
+				var message = "[";
+				for(var i = 0; i<pointsArray.length; i++){
+					message = message + "[" + pointsArray[i].x + "," + pointsArray[i].y + "],";
+				}
+				message = message.substring(0, message.length - 1);
+				message = message + "]";
+				document.getElementById('jsonCoords').innerHTML = message;
+			}
 
-			canvas.addEventListener('mousemove', function(evt) {
-				var mousePos = getMousePos(canvas, evt);
-				var message = 'Mouse position: ' + mousePos.x + ',' + mousePos.y;
-				writeMessage(canvas, message);
-				drawPoints(canvas, points);
-			}, false);
-			canvas.addEventListener('mousedown', function(click) {
-					var mousePos = getMousePos(canvas, click);
-					points.push(new point(mousePos.x, mousePos.y));
-			}, false);
+			function init() {
+				var canvas = document.getElementById('canvas');
+				var context = canvas.getContext('2d');
+				var points = new Array();
+
+				canvas.addEventListener('mousemove', function(evt) {
+					var mousePos = getMousePos(canvas, evt);
+					var message = 'Mouse position: ' + mousePos.x + ',' + mousePos.y;
+					writeMessage(canvas, message);
+					drawPoints(canvas, points);
+				}, false);
+				canvas.addEventListener('mousedown', function(click) {
+						var mousePos = getMousePos(canvas, click);
+						points.push(new point(mousePos.x, mousePos.y));
+						exportPoints(points);
+				}, false);
+			}
+			window.onload = init();
 		</script>
 	</body>
 </html>
