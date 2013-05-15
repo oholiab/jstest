@@ -1,0 +1,54 @@
+<html>
+	<body>
+		<canvas id="canvas" width="800" height="600">
+		<script type="text/javascript">
+
+			function writeMessage(canvas, message) {
+				var context = canvas.getContext('2d');
+				context.clearRect(0, 0, canvas.width, canvas.height);
+				context.font = '12pt Calibri';
+				context.fillText(message, 10, 25);
+			}
+
+			function getMousePos(canvas, evt) {
+				var rect = canvas.getBoundingClientRect();
+				return {
+					x: evt.clientX - rect.left,
+					y: evt.clientY - rect.top
+				};
+			}
+
+			function drawPoints(canvas, pointsArray) {
+				for(var i=0 ; i<pointsArray.length ; i++) {
+					var context = canvas.getContext('2d');
+					var thisPoint = pointsArray[i];
+					context.beginPath();
+					context.arc(thisPoint.x, thisPoint.y, 2, 0, 2 * Math.PI, false);
+					context.fillStyle = 'green';
+					context.fill();
+				}
+			}
+
+			function point(x, y) {
+				this.x = x;
+				this.y = y;
+			}
+
+			var canvas = document.getElementById('canvas');
+			var context = canvas.getContext('2d');
+			var points = new Array();
+
+			canvas.addEventListener('mousemove', function(evt) {
+				var mousePos = getMousePos(canvas, evt);
+				var message = 'Mouse position: ' + mousePos.x + ',' + mousePos.y;
+				writeMessage(canvas, message);
+				drawPoints(canvas, points);
+			}, false);
+			canvas.addEventListener('mousedown', function(click) {
+					var mousePos = getMousePos(canvas, evt);
+					points.push(new point(mousePos.x, mousePos.y));
+			}, false);
+		</script>
+	</body>
+</html>
+
